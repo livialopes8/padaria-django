@@ -15,7 +15,7 @@ class ProdutoAdmin(admin.ModelAdmin):
 
 @admin.register(Pedido)
 class PedidoAdmin(admin.ModelAdmin):
-    list_display = ('id', 'nome', 'tipo', 'status', 'total', 'criado_em')
+    list_display = ('id', 'nome', 'tipo', 'horario_retirada', 'status', 'total', 'criado_em')
     list_editable = ('status',)
     inlines = [ItemInline]
 

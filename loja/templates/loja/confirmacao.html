@@ -5,6 +5,11 @@
   <h1>Pedido #{{ pedido.pk }} confirmado! 🎉</h1>
   <p>Obrigada, {{ pedido.nome }}! Total: <strong>R$ {{ pedido.total|floatformat:2 }}</strong></p>
   <p>Modalidade: {{ pedido.get_tipo_display }}</p>
+  {% if pedido.tipo == 'retirada' %}
+    <p>Retire seu pedido em: <strong>{{ pedido.horario_retirada|date:"d/m/Y \à\s H:i" }}</strong></p>
+  {% else %}
+    <p>Entrega em: <strong>{{ pedido.endereco }}</strong></p>
+  {% endif %}
   <a class="btn" href="{% url 'home' %}">Voltar ao início</a>
 </section>
 {% endblock %}

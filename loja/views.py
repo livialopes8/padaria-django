@@ -31,13 +31,27 @@ def produtos(request):
 
 
 def adicionar(request, pk):
+    """Soma 1 unidade do produto no carrinho."""
     carrinho = request.session.get('carrinho', {})
     carrinho[str(pk)] = carrinho.get(str(pk), 0) + 1
     request.session['carrinho'] = carrinho
     return redirect('carrinho')
 
 
+def diminuir(request, pk):
+    """Tira 1 unidade do produto. Se chegar a zero, remove o item."""
+    carrinho = request.session.get('carrinho', {})
+    qtd = carrinho.get(str(pk), 0) - 1
+    if qtd > 0:
+        carrinho[str(pk)] = qtd
+    else:
+        carrinho.pop(str(pk), None)
+    request.session['carrinho'] = carrinho
+    return redirect('carrinho')
+
+
 def remover(request, pk):
+    """Remove o produto inteiro do carrinho (lixeira)."""
     carrinho = request.session.get('carrinho', {})
     carrinho.pop(str(pk), None)
     request.session['carrinho'] = carrinho

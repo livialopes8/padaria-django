@@ -3,9 +3,34 @@
 {% block conteudo %}
 <h1>Finalizar pedido</h1>
 <p>Total: <strong>R$ {{ total|floatformat:2 }}</strong> ({{ itens|length }} item(ns))</p>
+
 <form method="post">
   {% csrf_token %}
-  {{ form.as_p }}
+  {{ form.non_field_errors }}
+
+  <p>{{ form.nome.label_tag }}<br>{{ form.nome }}{{ form.nome.errors }}</p>
+  <p>{{ form.telefone.label_tag }}<br>{{ form.telefone }}{{ form.telefone.errors }}</p>
+  <p>{{ form.tipo.label_tag }}<br>{{ form.tipo }}{{ form.tipo.errors }}</p>
+
+  <p id="campo-endereco">{{ form.endereco.label_tag }}<br>{{ form.endereco }}{{ form.endereco.errors }}</p>
+  <p id="campo-horario">{{ form.horario_retirada.label_tag }}<br>{{ form.horario_retirada }}{{ form.horario_retirada.errors }}</p>
+
   <button class="btn" type="submit">Confirmar pedido</button>
 </form>
+
+<script>
+  // Mostra só o campo que faz sentido para o tipo escolhido
+  const tipo = document.getElementById('id_tipo');
+  const campoEndereco = document.getElementById('campo-endereco');
+  const campoHorario = document.getElementById('campo-horario');
+
+  function atualizar() {
+    const entrega = tipo.value === 'entrega';
+    campoEndereco.style.display = entrega ? 'block' : 'none';
+    campoHorario.style.display = entrega ? 'none' : 'block';
+  }
+
+  tipo.addEventListener('change', atualizar);
+  atualizar();
+</script>
 {% endblock %}

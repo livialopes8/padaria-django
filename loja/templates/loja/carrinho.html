@@ -4,10 +4,20 @@
 <h1>Seu carrinho</h1>
 {% if itens %}
 <table>
-  <tr><th>Produto</th><th>Qtd</th><th>Subtotal</th><th></th></tr>
+  <tr><th>Produto</th><th>Quantidade</th><th>Subtotal</th><th></th></tr>
   {% for i in itens %}
-  <tr><td>{{ i.produto.nome }}</td><td>{{ i.qtd }}</td><td>R$ {{ i.subtotal|floatformat:2 }}</td>
-      <td><a href="{% url 'remover' i.produto.pk %}">Remover</a></td></tr>
+  <tr>
+    <td>{{ i.produto.nome }}</td>
+    <td>
+      <span class="qtd">
+        <a href="{% url 'diminuir' i.produto.pk %}" title="Diminuir">−</a>
+        <strong>{{ i.qtd }}</strong>
+        <a href="{% url 'adicionar' i.produto.pk %}" title="Aumentar">+</a>
+      </span>
+    </td>
+    <td>R$ {{ i.subtotal|floatformat:2 }}</td>
+    <td><a class="lixeira" href="{% url 'remover' i.produto.pk %}" title="Remover do carrinho">🗑️</a></td>
+  </tr>
   {% endfor %}
   <tr><th colspan="2">Total</th><th colspan="2">R$ {{ total|floatformat:2 }}</th></tr>
 </table>
