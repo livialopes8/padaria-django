@@ -1,0 +1,22 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>{% block titulo %}Padaria Doce Trigo{% endblock %}</title>
+  <link rel="stylesheet" href="{% static 'loja/style.css' %}">
+</head>
+<body>
+<header>
+  <a class="logo" href="{% url 'home' %}">🥖 Doce Trigo</a>
+  <nav>
+    <a href="{% url 'home' %}">Início</a>
+    <a href="{% url 'produtos' %}">Cardápio</a>
+    <a href="{% url 'carrinho' %}">🛒 Carrinho</a>
+  </nav>
+</header>
+<main>{% block conteudo %}{% endblock %}</main>
+<footer>Padaria Doce Trigo · Peça online e retire sem fila</footer>
+</body>
+</html>

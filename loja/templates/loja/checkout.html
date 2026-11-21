@@ -1,0 +1,11 @@
+{% extends 'loja/base.html' %}
+{% block titulo %}Finalizar pedido{% endblock %}
+{% block conteudo %}
+<h1>Finalizar pedido</h1>
+<p>Total: <strong>R$ {{ total|floatformat:2 }}</strong> ({{ itens|length }} item(ns))</p>
+<form method="post">
+  {% csrf_token %}
+  {{ form.as_p }}
+  <button class="btn" type="submit">Confirmar pedido</button>
+</form>
+{% endblock %}

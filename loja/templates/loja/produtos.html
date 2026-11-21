@@ -1,0 +1,20 @@
+{% extends 'loja/base.html' %}
+{% block titulo %}Cardápio{% endblock %}
+{% block conteudo %}
+<h1>Cardápio</h1>
+<div class="filtros">
+  <a href="{% url 'produtos' %}" class="{% if not cat %}ativo{% endif %}">Todos</a>
+  {% for c in categorias %}<a href="?categoria={{ c.id }}" class="{% if cat == c.id|stringformat:'s' %}ativo{% endif %}">{{ c.nome }}</a>{% endfor %}
+</div>
+<div class="grid">
+  {% for p in produtos %}
+  <div class="card">
+    <div class="foto">{% if p.imagem %}<img src="{{ p.imagem.url }}" alt="{{ p.nome }}">{% else %}🥐{% endif %}</div>
+    <h3>{{ p.nome }}</h3>
+    <p>{{ p.descricao }}</p>
+    <p class="preco">R$ {{ p.preco|floatformat:2 }}</p>
+    <a class="btn sec" href="{% url 'adicionar' p.pk %}">Adicionar ao carrinho</a>
+  </div>
+  {% empty %}<p>Nenhum produto nesta categoria.</p>{% endfor %}
+</div>
+{% endblock %}

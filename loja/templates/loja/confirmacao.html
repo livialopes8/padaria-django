@@ -1,0 +1,10 @@
+{% extends 'loja/base.html' %}
+{% block titulo %}Pedido confirmado{% endblock %}
+{% block conteudo %}
+<section class="hero">
+  <h1>Pedido #{{ pedido.pk }} confirmado! 🎉</h1>
+  <p>Obrigada, {{ pedido.nome }}! Total: <strong>R$ {{ pedido.total|floatformat:2 }}</strong></p>
+  <p>Modalidade: {{ pedido.get_tipo_display }}</p>
+  <a class="btn" href="{% url 'home' %}">Voltar ao início</a>
+</section>
+{% endblock %}

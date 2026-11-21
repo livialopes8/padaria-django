@@ -1,0 +1,19 @@
+{% extends 'loja/base.html' %}
+{% block titulo %}Carrinho{% endblock %}
+{% block conteudo %}
+<h1>Seu carrinho</h1>
+{% if itens %}
+<table>
+  <tr><th>Produto</th><th>Qtd</th><th>Subtotal</th><th></th></tr>
+  {% for i in itens %}
+  <tr><td>{{ i.produto.nome }}</td><td>{{ i.qtd }}</td><td>R$ {{ i.subtotal|floatformat:2 }}</td>
+      <td><a href="{% url 'remover' i.produto.pk %}">Remover</a></td></tr>
+  {% endfor %}
+  <tr><th colspan="2">Total</th><th colspan="2">R$ {{ total|floatformat:2 }}</th></tr>
+</table>
+<p><a class="btn sec" href="{% url 'produtos' %}">Continuar comprando</a>
+   <a class="btn" href="{% url 'checkout' %}">Finalizar pedido</a></p>
+{% else %}
+<p>Seu carrinho está vazio. <a href="{% url 'produtos' %}">Ver cardápio</a></p>
+{% endif %}
+{% endblock %}

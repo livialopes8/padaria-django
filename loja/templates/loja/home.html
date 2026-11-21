@@ -1,0 +1,19 @@
+{% extends 'loja/base.html' %}
+{% block conteudo %}
+<section class="hero">
+  <h1>Pão quentinho, sem fila!</h1>
+  <p>Escolha seus produtos pelo site e retire na padaria na hora combinada, ou receba em casa.</p>
+  <a class="btn" href="{% url 'produtos' %}">Ver cardápio</a>
+</section>
+<h2>Destaques</h2>
+<div class="grid">
+  {% for p in destaques %}
+  <div class="card">
+    <div class="foto">{% if p.imagem %}<img src="{{ p.imagem.url }}" alt="{{ p.nome }}">{% else %}🥐{% endif %}</div>
+    <h3>{{ p.nome }}</h3>
+    <p class="preco">R$ {{ p.preco|floatformat:2 }}</p>
+    <a class="btn sec" href="{% url 'adicionar' p.pk %}">Adicionar</a>
+  </div>
+  {% empty %}<p>Nenhum produto cadastrado ainda.</p>{% endfor %}
+</div>
+{% endblock %}
